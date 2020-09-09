@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import placeholder from "../img/sewerai-logo-black.png"
+import companyLogo from "./img/sewerai-logo-black.png"
 import Magnifier from "react-magnifier";
 import axios from "axios";
-import { Spinner } from 'evergreen-ui'
+import { Spinner, Badge } from 'evergreen-ui'
 import './App.css';
 import { Form } from './components/Form';
 
@@ -53,7 +53,13 @@ function App() {
 
   return (
     <div className="container mx-auto">
-      <div className="flex items-center justify-center h-screen">
+      <h1 className="flex items-center justify-center mt-12">
+        <img className="w-32 mr-3" alt="Sewer AI logo" src={companyLogo} />
+        <span className="text-2xl">
+          Image labeling tool
+        </span>
+      </h1>
+      <div className="flex mt-20 justify-center">
         {loading &&
           <div className="items-center justify-center">
             <Spinner />
@@ -65,7 +71,18 @@ function App() {
               <div className="mr-5 w-2/3">
                 <Magnifier className="h-full w-full" src={frame?.frame_url} />
               </div>
-              <div className="w-2/3">
+              <div className="w-1/3">
+                <h2 className="font-bold mb-3">Code: {frame.code}</h2>
+                <div className="flex-col mb-6">
+                  <div>Diamter: <Badge color="teal"> {frame.pipe_parameters.diameter} </Badge>
+                  </div>
+                  <div>
+                    Material: <Badge color="orange"> {frame.pipe_parameters.material} </Badge>
+                  </div>
+                  <div>
+                    Shape: <Badge color="purple"> {frame.pipe_parameters.shape} </Badge>
+                  </div>
+                </div>
                 <Form frame={frame} onSubmit={handleSubmit} />
               </div>
             </>
