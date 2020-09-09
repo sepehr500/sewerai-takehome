@@ -31,12 +31,12 @@ const getValidationMessage = (errorType: string) => {
 
 
 export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) => void }) => {
-    const { errors, control, handleSubmit } = useForm({ mode: "onBlur" });
+    const { errors, control, handleSubmit } = useForm({ mode: "all" });
     const fields: Fields = fullSchema[frame.code].fields;
     useEffect(() => {
         // Focus on the first input
         //@ts-ignore
-        // document.getElementById(Object.keys(fields)[0]).focus()
+        document.getElementById(Object.keys(fields)[0]).focus()
     }, [fields])
 
     const getErrorDetails = (fieldSchema: Field) => {
