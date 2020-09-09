@@ -31,7 +31,7 @@ const getValidationMessage = (errorType: string) => {
 
 
 export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) => void }) => {
-    const { errors, control, handleSubmit } = useForm({ mode: "all" });
+    const { errors, control, handleSubmit, watch } = useForm({ mode: "all" });
     const fields: Fields = fullSchema[frame.code].fields;
     useEffect(() => {
         // Focus on the first input
@@ -39,11 +39,10 @@ export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) =
         document.getElementById(Object.keys(fields)[0]).focus()
     }, [fields])
 
+
+
     const getErrorDetails = (fieldSchema: Field) => {
         let error = "";
-        if (fieldSchema.max_length) {
-            error += `Max length: ${fieldSchema.max_length} `
-        }
         if (fieldSchema.minimum) {
             error += `Min: ${fieldSchema.minimum} `
         }
@@ -63,10 +62,14 @@ export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) =
         )
     }
 
+
+
     return (
         <form onSubmit={handleSubmit(submitWrapper)}>
             {
                 Object.entries(fields).map(([fieldName, fieldSchema]: [string, Field]) => {
+                    //@ts-ignore
+                    const textCountString = isTextArea(fieldSchema.max_length) ? `Count: ${(watch(fieldName)?.length ?? 0)}/${fieldSchema.max_length}` : "";
                     return (
                         //@ts-ignore
                         <div className={isTextArea(fieldSchema.max_length) ? "w-64" : "w-32"}>
@@ -86,7 +89,7 @@ export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) =
                                 isInvalid={!!errors[fieldName]}
                                 maxLength={fieldSchema.max_length}
                                 validationMessage={!!errors[fieldName] && getValidationMessage(errors[fieldName].type)}
-                                description={getErrorDetails(fieldSchema)}
+                                description={getErrorDetails(fieldSchema) + " " + textCountString}
                             />
                         </div>
                     )
