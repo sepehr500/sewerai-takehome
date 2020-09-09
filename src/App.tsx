@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import placeholder from "../img/sewerai-logo-black.png"
+import Magnifier from "react-magnifier";
 import axios from "axios";
 import { Spinner } from 'evergreen-ui'
 import './App.css';
@@ -47,6 +49,8 @@ function App() {
     }
   }
 
+  console.log(Magnifier);
+
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-center h-screen">
@@ -58,10 +62,10 @@ function App() {
         {
           !loading && frame && (
             <>
-              <div className="mr-5">
-                <img alt={frame?.code} src={frame?.frame_url} />
+              <div className="mr-5 w-2/3">
+                <Magnifier className="h-full w-full" src={frame?.frame_url} />
               </div>
-              <div>
+              <div className="w-2/3">
                 <Form frame={frame} onSubmit={handleSubmit} />
               </div>
             </>
