@@ -53,8 +53,18 @@ export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) =
         return error;
     }
     const isTextArea = (maxLength: number) => maxLength > 120;
+
+    const submitWrapper = (values) => {
+        return onSubmit(
+            Object.fromEntries(
+                Object.entries(values).map(([k, v]: [string, any]) => {
+                    return [k, fields[k].type === "number" ? parseInt(v) : v]
+                }))
+        )
+    }
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(submitWrapper)}>
             {
                 Object.entries(fields).map(([fieldName, fieldSchema]: [string, Field]) => {
                     return (
@@ -82,7 +92,7 @@ export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) =
                     )
                 })
             }
-            <Button disabled={!!Object.keys(errors).length} onClick={handleSubmit(onSubmit)} appearance="primary">Submit</Button>
+            <Button disabled={!!Object.keys(errors).length} onClick={handleSubmit(submitWrapper)} appearance="primary">Submit</Button>
         </form>
 
     )

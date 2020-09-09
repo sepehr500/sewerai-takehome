@@ -45,9 +45,7 @@ function App() {
     if (frame) {
       setLoading(true)
       try {
-        await axios.post("/" + frame?.id, Object.fromEntries(Object.entries(formValues).map(([k, v]: [string, any]) => {
-          return [k, isNaN(v) ? v : parseInt(v)]
-        })))
+        await axios.post("/" + frame?.id, formValues)
         await fetchFrame();
       } catch (error) {
         setLoading(false)
