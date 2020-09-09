@@ -33,6 +33,20 @@ function App() {
     })
   }, [])
 
+  const fetchFrame = async () => {
+    const { data } = await axios.get<Frame>("/");
+    setFrame(data);
+    setLoading(false);
+  }
+
+  const handleSubmit = async (formValues) => {
+    if (frame) {
+      setLoading(true)
+      await axios.post("/" + frame?.id, formValues)
+      await fetchFrame();
+    }
+  }
+
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-center h-screen">
@@ -48,7 +62,7 @@ function App() {
                 <img alt={frame?.code} src={frame?.frame_url} />
               </div>
               <div>
-                <Form frame={frame} />
+                <Form frame={frame} onSubmit={handleSubmit} />
               </div>
             </>
           )

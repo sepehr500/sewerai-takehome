@@ -1,6 +1,6 @@
 import React from 'react';
 import { Frame } from '../../App';
-import { TextInputField, TextareaField } from 'evergreen-ui'
+import { TextInputField, TextareaField, Button } from 'evergreen-ui'
 import { useForm, Controller } from "react-hook-form"
 import fullSchema from "../../schema.json"
 
@@ -28,8 +28,8 @@ const getValidationMessage = (errorType: string) => {
 
 
 
-export const Form = ({ frame }: { frame: Frame }) => {
-    const { errors, control } = useForm({ mode: "onBlur" });
+export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) => void }) => {
+    const { errors, control, handleSubmit } = useForm({ mode: "onBlur" });
     const fields: Fields = fullSchema[frame.code].fields;
     return (
         <div>
@@ -57,6 +57,7 @@ export const Form = ({ frame }: { frame: Frame }) => {
                     )
                 })
             }
+            <Button onClick={handleSubmit(onSubmit)} appearance="primary">Submit</Button>
         </div>
 
     )
