@@ -44,8 +44,15 @@ function App() {
   const handleSubmit = async (formValues) => {
     if (frame) {
       setLoading(true)
-      await axios.post("/" + frame?.id, formValues)
-      await fetchFrame();
+      try {
+        await axios.post("/" + frame?.id, Object.fromEntries(Object.entries(formValues).map(([k, v]: [string, any]) => {
+          return [k, isNaN(v) ? v : parseInt(v)]
+        })))
+        await fetchFrame();
+      } catch (error) {
+        setLoading(false)
+        window.alert("Failed to submit")
+      }
     }
   }
 
