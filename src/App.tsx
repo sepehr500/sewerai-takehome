@@ -49,8 +49,6 @@ function App() {
     }
   }
 
-  console.log(Magnifier);
-
   return (
     <div className="container mx-auto">
       <h1 className="flex items-center justify-center mt-12">

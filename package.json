@@ -2,6 +2,7 @@
   "name": "sewerai-takehome",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -12,6 +13,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.20.0",
     "evergreen-ui": "^5.0.6",
+    "parcel-bundler": "^1.12.4",
     "react": "^16.13.1",
     "react-cool-img": "^1.2.3",
     "react-dom": "^16.13.1",
@@ -24,10 +26,8 @@
   "scripts": {
     "build:css": "postcss src/styles/index.css -o src/index.css",
     "watch:css": "postcss src/styles/index.css -o src/index.css -w",
-    "start": "npm run watch:css & react-scripts start",
-    "build": "npm run build:css && react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "npm run watch:css & parcel src/index.html",
+    "build": "npm run build:css && parcel build src/index.html --public-url='./'"
   },
   "eslintConfig": {
     "extends": "react-app"

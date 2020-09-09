@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Frame } from '../../App';
 import { TextInputField, TextareaField, Button } from 'evergreen-ui'
+
 import { useForm, Controller } from "react-hook-form"
 import fullSchema from "../../schema.json"
 
@@ -35,7 +36,7 @@ export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) =
     useEffect(() => {
         // Focus on the first input
         //@ts-ignore
-        document.getElementById(Object.keys(fields)[0]).focus()
+        // document.getElementById(Object.keys(fields)[0]).focus()
     }, [fields])
 
     const getErrorDetails = (fieldSchema: Field) => {
@@ -54,6 +55,7 @@ export const Form = ({ frame, onSubmit }: { frame: Frame, onSubmit: (val: any) =
     const isTextArea = (maxLength: number) => maxLength > 120;
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+            <TextInputField />
             {
                 Object.entries(fields).map(([fieldName, fieldSchema]: [string, Field]) => {
                     return (
