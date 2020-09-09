@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import axios from "axios";
+import { Spinner } from 'evergreen-ui'
 import './App.css';
 
 
@@ -32,21 +33,26 @@ function App() {
     })
   }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mx-auto">
+      <div className="flex items-center justify-center h-full h-screen">
+        {loading &&
+          <div className="items-center justify-center">
+            <Spinner />
+          </div>
+        }
+        {
+          !loading && (
+            <>
+              <div className="mr-5">
+                <img src={frame.frame_url} />
+              </div>
+              <div>
+                Cat
+            </div>
+            </>
+          )
+        }
+      </div>
     </div>
   );
 }
